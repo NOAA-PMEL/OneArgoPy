@@ -31,7 +31,6 @@ import netCDF4
 # Local Imports
 from Settings import DownloadSettings, SourceSettings
 
-
 class Argo:
     """ The Argo class contains the primary functions for downloading and handling
         data gathered from GDAC including a constructor, select_profiels(), 
@@ -934,6 +933,9 @@ class Argo:
         # larger dataframes, only adding floats that match the
         # type to the frames.
         else:
+            # Empty default dataframes are needed for the len function below
+            self.selected_from_prof_index = pd.DataFrame({'wmoid': []})
+            self.selected_from_sprof_index = pd.DataFrame({'wmoid': []})
             if self.float_type != 'phys':
                 # Make a list of bgc floats that the user wants
                 bgc_filter = ((self.float_stats['wmoid'].isin(self.float_ids)) &
@@ -985,6 +987,10 @@ class Argo:
             del self.prof_index
         del self.selection_frame_bgc
         del self.selection_frame_phys
+        if self.selection_frame.empty:
+            if self.download_settings.verbose:
+                print('No matching floats found')
+            return {}
         if self.download_settings.verbose:
             print(f"{len(self.selection_frame['wmoid'].unique())} floats selected")
             print(f'{len(self.selection_frame)} profiles selected according to time and space ' +
