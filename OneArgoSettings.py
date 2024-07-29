@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Settings.py
+# OneArgoSettings.py
 #------------------------------------------------------------------------------
 # Created By: Savannah Stephenson and Hartmut Frenzel
 # Creation Date: 07/26/2024
@@ -31,7 +31,7 @@ class DownloadSettings():
         :param: user_settings : str - An optional path to user defined 
             settings.
 
-        Settings: 
+        Settings:
         base_dir : str - The base directory that all sub directories 
             should be created at.
         sub_dirs : list - A list of folders to that will store 
@@ -45,7 +45,7 @@ class DownloadSettings():
             number of seconds since an index file was downloaded before 
             downloading it again for new profile selection).
         max_attempts : int - An integer value that determines the 
-            number of times argo tries to download the same file before 
+            number of times the library tries to download the same file before 
             raising an exception.
         keep_index_in_memory : bool - True by default, a value to 
             determine if the dataframes from the index files should be 
@@ -85,7 +85,7 @@ class DownloadSettings():
 
     def __parse_download_settings(self, user_settings: Path) -> dict:
         """ A function to parse a given user_settings file to initialize
-            the Download Settings classes based off of a passed path to a json
+            the DownloadSettings class based off of a passed path to a json
             file. 
 
             :param: user_settings : Path - The path to the user's settings file
@@ -106,15 +106,15 @@ class DownloadSettings():
 
 
     def __str__(self) -> str:
-        return (f'\n[Download Settings] -> \nBase Directory: {self.base_dir}, ' +
-                f'\nSub Directories: {self.sub_dirs}, \nIndex Files: {self.index_files}, ' +
+        return (f'\n[DownloadSettings] -> \nBase Directory: {self.base_dir}, ' +
+                f'\nSubdirectories: {self.sub_dirs}, \nIndex Files: {self.index_files}, ' +
                 f'\nVerbose Setting: {self.verbose}, \nMax Attempts: {self.max_attempts}, ' +
                 f'\nKeep Index In Memory: {self.keep_index_in_memory}, ' +
                 f'\nFloat Type: {self.float_type}\n')
 
 
     def __repr__(self) -> str:
-        return '\nDownloadSettings(PATH TO USER SETTINGS FILE)'
+        return '\nDownloadSettings(path_to_user_settings_file)'
 
 
     def __eq__(self, __value: object) -> bool:
@@ -130,7 +130,7 @@ class DownloadSettings():
 
 class AnalysisSettings():
     """ The AnalysisSettings class is used to store all of the default 
-        settings for analyzing data from the argo floats.
+        settings for analyzing data from the Argo floats.
 
         :param: user_settings : str - An optional path to user defined 
             settings.
@@ -157,7 +157,7 @@ class AnalysisSettings():
 
     def __parse_analysis_settings(self, user_settings: Path) -> dict:
         """ A function to parse a given user_settings file to initialize
-            the Analysis Settings classes based off of a passed path to a json
+            the AnalysisSettings class based off of a passed path to a json
             file. 
 
             :param: user_settings : Path - The path to the user's settings file
@@ -184,7 +184,7 @@ class AnalysisSettings():
 
 
     def __repr__(self) -> str:
-        return '\nAnalysisSettings(PATH TO USER SETTINGS FILE)'
+        return '\nAnalysisSettings(path_to_user_settings_file)'
 
 
     def __eq__(self, __value: object) -> bool:
@@ -215,14 +215,15 @@ class SourceSettings():
             self.avail_vars = ss_data['avail_vars']
             self.dacs = ss_data['dacs']
         else:
-            self.hosts = ["https://data-argo.ifremer.fr/", "https://usgodae.org/ftp/outgoing/argo/"]
+            self.hosts = ["https://data-argo.ifremer.fr/",
+                          "https://usgodae.org/ftp/outgoing/argo/"]
             self.avail_vars = None
             self.dacs = None
 
 
     def __parse_source_settings(self, user_settings: Path) -> dict:
         """ A function to parse a given user_settings file to initialize
-            the Source Settings classes based off of a passed path to a json
+            the SourceSettings class based off of a passed path to a json
             file. 
 
             :param: user_settings : Path - The path to the user's settings file
@@ -266,7 +267,7 @@ class SourceSettings():
 
 
     def __repr__(self) -> str:
-        return '\nSourceSettings(PATH TO USER SETTINGS FILE)'
+        return '\nSourceSettings(path_to_user_settings_file)'
 
 
     def __eq__(self, __value: object) -> bool:

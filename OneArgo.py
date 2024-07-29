@@ -29,7 +29,7 @@ import cartopy.feature as cf
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 import netCDF4
 # Local Imports
-from Settings import DownloadSettings, SourceSettings
+from OneArgoSettings import DownloadSettings, SourceSettings
 
 class Argo:
     """ The Argo class contains the primary functions for downloading and handling
@@ -49,7 +49,7 @@ class Argo:
             files, the third dataframe is a two column frame with
             float ids and if they are a bgc float or not.
             :param: user_settings : str - An optional parameter that will be used
-                to initialize the Settings classes if passed. Should be the
+                to initialize the *Settings classes if passed. This should be the
                 full filepath.
             NOTE: If the user has their own settings configuration and has
             set keep_index_in_memory to false then the dataframes will be
@@ -515,7 +515,7 @@ class Argo:
             dac = f'{dac}/'
             float_id = f'{float_id}/'
         while (not success) and (iterations < self.download_settings.max_attempts):
-            # Try both hosts (preferred one is listed first in download settings)
+            # Try both hosts (preferred one is listed first in SourceSettings)
             for host in self.source_settings.hosts:
                 if file_name.endswith('.txt'):
                     url = "".join([host, file_name, ".gz"])
