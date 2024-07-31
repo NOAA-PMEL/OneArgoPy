@@ -311,12 +311,15 @@ class Argo:
         files = []
         for wmoid in self.float_ids:
             # If the float is a phys float, or if the user has provided no variables
-            # or only phys variables then then use the corresponding prof file
+            # or only phys variables then then use the corresponding prof file,
+            # unless floats and profiles were specified with a dictionary
+            # (the profile indices refer to the sprof index file, so Sprof.nc files
+            # must be loaded for consistency)
             if ((not self.float_stats.loc[self.float_stats['wmoid'] == wmoid, 'is_bgc'].values[0])
-                or (self.float_variables is None) or (only_phys)):
+                or (((self.float_variables is None) or (only_phys)) and not type(floats) is dict)):
                 file_name = f'{wmoid}_prof.nc'
                 files.append(file_name)
-            # If the float is a bgc float it will have a corresponding sprof file
+            # If the float is a bgc float it will have a corresponding Sprof file
             else:
                 file_name = f'{wmoid}_Sprof.nc'
                 files.append(file_name)
